@@ -15,9 +15,12 @@ public class testClass {
 //            System.out.println("Good bye");
 //        }
         int a = 5;
-        while (a < 15) {
+        while (true) {
             System.out.println("a = " + a);
             a++;
+            if (a > 15){
+                break;
+            }
         }
         System.out.println("While is over");
     }
