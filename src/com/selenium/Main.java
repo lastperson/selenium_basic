@@ -33,11 +33,18 @@ public class Main {
 //            System.out.print(arr2[i] + " ");
 //        }
 
-        String[] strArr1 = {"Teddy", "Arny", "Tommy"};
-        String[] strArr2 = {"Bear", "Schwarc", "The Gun"};
+//        String[] strArr1 = {"Teddy", "Arny", "Tommy"};
+//        String[] strArr2 = {"Bear", "Schwarc", "The Gun"};
+//
+//        for (int i = 0; i < strArr1.length; i++) {
+//            System.out.println(strArr1[i] + " " + strArr2[i]);
+//        }
 
-        for (int i = 0; i < strArr1.length; i++) {
-            System.out.println(strArr1[i] + " " + strArr2[i]);
+        if (x > 100) {
+            System.out.println("Х больше 100");
+        }
+        else {
+            System.out.println("Таки Х меньше 100");
         }
 
     }
