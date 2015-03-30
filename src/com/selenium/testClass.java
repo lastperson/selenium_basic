@@ -15,13 +15,18 @@ public class testClass {
 //            System.out.println("Good bye");
 //        }
         int a = 5;
-        while (true) {
-            System.out.println("a = " + a);
-            a++;
-            if (a > 15){
-                break;
-            }
+//        while (true) {
+//            System.out.println("a = " + a);
+//            a++;
+//            if (a > 15){
+//                break;
+//            }
+//        }
+
+        for (int i = 0; i < a; i++){
+            System.out.println("a = " + a +  "\ni = " + i);
+            a--;
         }
-        System.out.println("While is over");
+
     }
 }
