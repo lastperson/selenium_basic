@@ -5,7 +5,7 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-        double c = 13.4;
+       // double c = 13.4;
         int x=256;
         int y=3180;
         double d = 30;
@@ -47,6 +47,12 @@ public class Main {
 //            System.out.println("Таки Х меньше 100");
 //        }
 
+        TestClass c = new TestClass();
+        c.say();
+// Hello World;
+        c.update("Goodbye World");
+        c.say();
+// Goodbye World
 
 
     }
