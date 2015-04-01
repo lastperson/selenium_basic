@@ -1,4 +1,4 @@
-package com.selenium;
+package com.selenium.ClassesAndObjects;
 
 /**
  * Created by Admin on 25.03.15.

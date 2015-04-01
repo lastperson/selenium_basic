@@ -1,4 +1,4 @@
-package com.selenium;
+package com.selenium.ClassesAndObjects;
 
 /**
  * Created by Admin on 30.03.15.
@@ -7,7 +7,7 @@ public class doorOperator {
     public static void main(String[] args) {
         Door k = new Door(100);
         Door l = new Door(200);
-
+        Door door = new Door(300);
         int d = k.height;
         d = l.height;
 
@@ -22,7 +22,7 @@ public class doorOperator {
 //            System.out.println("Door is closed");
 //        }
 
-        k.print(k);
+        door.print(k);
 
 
     }

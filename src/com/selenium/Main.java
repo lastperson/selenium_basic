@@ -53,7 +53,7 @@ public class Main {
 //        c.update("Goodbye World");
 //        c.say();
 // Goodbye World
-
+/*
         ProDoor door = new ProDoor(2000, 900, true, false);
         String doorInfo = door.toString();
         System.out.println("Door info:\n" + doorInfo);
@@ -96,6 +96,6 @@ public class Main {
 // Size: 1900x800 mm
 // Opened: yes
 // Locked: no
-
+*/
     }
 }

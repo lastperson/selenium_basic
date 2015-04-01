@@ -1,4 +1,4 @@
-package com.selenium;
+package com.selenium.ClassesAndObjects;
 
 
 public class Door {
