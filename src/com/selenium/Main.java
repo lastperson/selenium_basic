@@ -6,9 +6,9 @@ public class Main {
 
     public static void main(String[] args) {
        // double c = 13.4;
-        int x=256;
-        int y=3180;
-        double d = 30;
+//        int x=256;
+//        int y=3180;
+//        double d = 30;
 //        System.out.println("x + y = " +(x+y));
 //        System.out.println(Math.pow(d,2));
 //
