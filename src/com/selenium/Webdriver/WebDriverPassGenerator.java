@@ -93,7 +93,7 @@ public class WebDriverPassGenerator {
 
     //==================================================================
     @Test
-    public void titleIsCorrect () {
+    public void passwordIsCorrect() {
         setField ("Your master password", "123456789");
         setField("Site name", "gmail.com");
         generate ();
