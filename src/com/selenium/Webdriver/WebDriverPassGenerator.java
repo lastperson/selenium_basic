@@ -13,21 +13,45 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 /**
  * Created by Admin on 08.04.15.
+ *
+ * http://oxogamestudio.com/passwd.current2.htm
+ *
  */
 
 @RunWith(JUnit4.class)
 public class WebDriverPassGenerator {
 
-    public WebDriver chromeDriver;
+    public static WebDriver chromeDriver;
+    public static String masterpass;
+    public static String sitepath;
+    public static String password;
 
     public static String WebDriverPassGenerator(WebDriver chromeDriver, String master, String site) {
-        chromeDriver.findElement(By.name("master")).clear();
-        chromeDriver.findElement(By.name("master")).sendKeys(master);
-        chromeDriver.findElement(By.name("site")).clear();
-        chromeDriver.findElement(By.name("site")).sendKeys(site);
-        chromeDriver.findElement(By.xpath("//td/input[@value]")).click();
 
-        return chromeDriver.findElement(By.name("password")).getAttribute("value");
+//        ============= BY XPATH FOLLOWING w/o tags ==============
+        chromeDriver.findElement(By.xpath("//td[text()='Your master password']/following::input[1]")).clear();
+        chromeDriver.findElement(By.xpath("//td[text()='Your master password']/following::input[1]")).sendKeys(master);
+        chromeDriver.findElement(By.xpath("//td[text()='Site name']/following::input[1]")).clear();
+        chromeDriver.findElement(By.xpath("//td[text()='Site name']/following::input[1]")).sendKeys(site);
+        chromeDriver.findElement(By.xpath("//td[text()='Site name']/following::input[2]")).click();
+
+        return chromeDriver.findElement(By.xpath("//td[text()='Generated password']/following::input[1]")).getAttribute("value");
+
+//        ============= BY XPATH simple ==============
+//        chromeDriver.findElement(By.xpath("//input[@name='master']")).clear();
+//        chromeDriver.findElement(By.xpath("//input[@name='master']")).sendKeys(master);
+//        chromeDriver.findElement(By.xpath("//input[@name='site']")).clear();
+//        chromeDriver.findElement(By.xpath("//input[@name='site']")).sendKeys(site);
+//        chromeDriver.findElement(By.xpath("//td/input[@value]")).click();
+//        return chromeDriver.findElement(By.xpath("//input[@name='password']")).getAttribute("value");
+//        ============= BY Name ==============
+//        chromeDriver.findElement(By.name("master")).clear();
+//        chromeDriver.findElement(By.name("master")).sendKeys(master);
+//        chromeDriver.findElement(By.name("site")).clear();
+//        chromeDriver.findElement(By.name("site")).sendKeys(site);
+
+
+
 
     }
 
@@ -38,6 +62,20 @@ public class WebDriverPassGenerator {
         else {
             System.out.println("Test failed");
         }
+    }
+
+    public static void generate() {
+//        System.setProperty("webdriver.chrome.driver", "C:\\automation\\chromedriver.exe");
+        chromeDriver = new ChromeDriver();
+        chromeDriver.manage().window().setSize(new Dimension(1200, 768));
+        chromeDriver.get("http://angel.net/~nic/passwd.current.html");
+        chromeDriver.findElement(By.name("master")).clear();
+        chromeDriver.findElement(By.name("master")).sendKeys(masterpass);
+        chromeDriver.findElement(By.name("site")).clear();
+        chromeDriver.findElement(By.name("site")).sendKeys(sitepath);
+        chromeDriver.findElement(By.xpath("//td/input[@value]")).click();
+
+        password = chromeDriver.findElement(By.name("password")).getAttribute("value");
     }
 
     @Before
@@ -52,6 +90,17 @@ public class WebDriverPassGenerator {
     public void tearDown() {
         chromeDriver.quit();
     }
+
+    //==================================================================
+    @Test
+    public void titleIsCorrect () {
+        setField ("Your master password", "123456789");
+        setField("Site name", "gmail.com");
+        generate ();
+        String pwd = getField ("Generated password");
+        Assert.assertEquals("WH&*YIUU", pwd);
+    }
+    //==================================================================
 
 
     @Test
