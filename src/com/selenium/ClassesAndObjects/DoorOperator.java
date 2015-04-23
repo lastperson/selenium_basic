@@ -3,7 +3,7 @@ package com.selenium.ClassesAndObjects;
 /**
  * Created by Admin on 30.03.15.
  */
-public class doorOperator {
+public class DoorOperator {
     public static void main(String[] args) {
         Door k = new Door(100);
         Door l = new Door(200);
