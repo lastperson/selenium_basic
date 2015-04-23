@@ -21,7 +21,7 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public class WebDriverPassGenerator {
 
-    public static WebDriver chromeDriver;
+//    public static WebDriver chromeDriver;
     public static String masterpass;
     public static String sitepath;
     public static String password;
@@ -73,28 +73,28 @@ public class WebDriverPassGenerator {
 //        chromeDriver.findElement(By.name("master")).sendKeys(masterpass);
 //        chromeDriver.findElement(By.name("site")).clear();
 //        chromeDriver.findElement(By.name("site")).sendKeys(sitepath);
-        chromeDriver.findElement(By.xpath("//td/input[@value]")).click();
+        TestHelper.driver.findElement(By.xpath("//td/input[@value]")).click();
 
 //        password = chromeDriver.findElement(By.name("password")).getAttribute("value");
     }
 
     public static void setField (String label, String value){
-        chromeDriver.findElement(By.xpath("//td[text()='"+label+"']/following::input[1]")).clear();
-        chromeDriver.findElement(By.xpath("//td[text()='"+label+"']/following::input[1]")).sendKeys(value);
+        TestHelper.driver.findElement(By.xpath("//td[text()='"+label+"']/following::input[1]")).clear();
+        TestHelper.driver.findElement(By.xpath("//td[text()='"+label+"']/following::input[1]")).sendKeys(value);
     }
 
     public static String getField (String label){
-        return chromeDriver.findElement(By.xpath("//td[text()='" + label + "']/following::input[1]")).getAttribute("value");
+        return TestHelper.driver.findElement(By.xpath("//td[text()='" + label + "']/following::input[1]")).getAttribute("value");
     }
 
     @Before
     public void init(){
         TestHelper.init();
         GenPassPage.open();
-//        System.setProperty("webdriver.chrome.driver", "C:\\automation\\chromedriver.exe");
-//        chromeDriver = new ChromeDriver();
-//        chromeDriver.manage().window().setSize(new Dimension(1200, 768));
-//        chromeDriver.get("http://angel.net/~nic/passwd.current.html");
+//        System.setProperty("webdriver.chrome.driver", "C:\\automation\\TestHelper.driver.exe");
+//        TestHelper.driver = new TestHelper.driver();
+//        TestHelper.driver.manage().window().setSize(new Dimension(1200, 768));
+//        TestHelper.driver.get("http://angel.net/~nic/passwd.current.html");
     }
 
     @After
@@ -115,45 +115,104 @@ public class WebDriverPassGenerator {
 
 
     @Test
-    public void etalonGenereation(){
-     Assert.assertEquals("Password is not matched!", WebDriverPassGenerator(chromeDriver, "12345678", "example@gmail.com"), "HjK5swsJTgkQ/@1a");
+    public void pwdOkEtalonGeneration() {
+        GenPassPage.setField("Your master password", "12345678");
+        GenPassPage.setField("Site name", "example@gmail.com");
+        GenPassPage.generate();
+        String pwd = GenPassPage.getField("Generated password");
+        Assert.assertEquals("HjK5swsJTgkQ/@1a", pwd);
     }
 
-    @Test
-    public void blankMasterPass(){
-        Assert.assertEquals("Password is not matched!", WebDriverPassGenerator(chromeDriver, "", "gmail.com"), "zmcHOAyf2oZm+@1a");
-    }
+
+//    @Test
+//    public void etalonGenereation(){
+//     Assert.assertEquals("Password is not matched!", WebDriverPassGenerator(chromeDriver, "12345678", "example@gmail.com"), "HjK5swsJTgkQ/@1a");
+//    }
+
 
     @Test
-    public void blankSite(){
-        Assert.assertEquals("Password is not matched!", WebDriverPassGenerator(chromeDriver, "12345678", ""), "9Ixm2r5Xnm41Q@1a");
+    public void pwdOkBlankMasterPass() {
+        GenPassPage.setField("Your master password", "");
+        GenPassPage.setField("Site name", "gmail.com");
+        GenPassPage.generate();
+        String pwd = GenPassPage.getField("Generated password");
+        Assert.assertEquals("zmcHOAyf2oZm+@1a", pwd);
     }
 
-    @Test
-    public void blankStrings(){
-        Assert.assertEquals("Password is not matched!", WebDriverPassGenerator(chromeDriver, "", ""), "BaefBs8/Z/cm2@1a");
-    }
+//    @Test
+//    public void blankMasterPass(){
+//        Assert.assertEquals("Password is not matched!", WebDriverPassGenerator(chromeDriver, "", "gmail.com"), "zmcHOAyf2oZm+@1a");
+//    }
 
     @Test
-    public void longStrings(){
-        Assert.assertEquals("Password is not matched!", WebDriverPassGenerator(chromeDriver, "asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasds", "asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasds"), "bZyCKVuD+vA3e@1a");
+    public void pwdOkBlankSite() {
+        GenPassPage.setField("Your master password", "12345678");
+        GenPassPage.setField("Site name", "");
+        GenPassPage.generate();
+        String pwd = GenPassPage.getField("Generated password");
+        Assert.assertEquals("9Ixm2r5Xnm41Q@1a", pwd);
     }
 
+//    @Test
+//    public void blankSite(){
+//        Assert.assertEquals("Password is not matched!", WebDriverPassGenerator(chromeDriver, "12345678", ""), "9Ixm2r5Xnm41Q@1a");
+//    }
+
     @Test
-    public void specialSymbols(){
-        Assert.assertEquals("Password is not matched!", WebDriverPassGenerator(chromeDriver, "%^*&#$^&^???", "%^*&#$^&^???"), "jSFRYvJbm17kb@1a");
+    public void pwdOkBlankStrings() {
+        GenPassPage.setField("Your master password", "");
+        GenPassPage.setField("Site name", "");
+        GenPassPage.generate();
+        String pwd = GenPassPage.getField("Generated password");
+        Assert.assertEquals("BaefBs8/Z/cm2@1a", pwd);
     }
+
+//    @Test
+//    public void blankStrings(){
+//        Assert.assertEquals("Password is not matched!", WebDriverPassGenerator(chromeDriver, "", ""), "BaefBs8/Z/cm2@1a");
+//    }
+
+
+    @Test
+    public void pwdOkLongStrings() {
+        GenPassPage.setField("Your master password", "asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasds");
+        GenPassPage.setField("Site name", "asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasds");
+        GenPassPage.generate();
+        String pwd = GenPassPage.getField("Generated password");
+        Assert.assertEquals("bZyCKVuD+vA3e@1a", pwd);
+    }
+
+//    @Test
+//    public void longStrings(){
+//        Assert.assertEquals("Password is not matched!", WebDriverPassGenerator(chromeDriver, "asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasds", "asdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasdasds"), "bZyCKVuD+vA3e@1a");
+//    }
+
+    @Test
+    public void pwdOkSpecialSymbols() {
+        GenPassPage.setField("Your master password", "%^*&#$^&^???");
+        GenPassPage.setField("Site name", "%^*&#$^&^???");
+        GenPassPage.generate();
+        String pwd = GenPassPage.getField("Generated password");
+        Assert.assertEquals("jSFRYvJbm17kb@1a", pwd);
+    }
+
+//    @Test
+//    public void specialSymbols(){
+//        Assert.assertEquals("Password is not matched!", WebDriverPassGenerator(chromeDriver, "%^*&#$^&^???", "%^*&#$^&^???"), "jSFRYvJbm17kb@1a");
+//    }
+
+
 
     @Test
     public void generateNameButton(){
-       Assert.assertEquals("Name Button is not matched!", chromeDriver.findElement(By.xpath("//td/input[@value]")).getAttribute("value"), "Generate");
+       Assert.assertEquals("Name Button is not matched!", TestHelper.driver.findElement(By.xpath("//td/input[@value]")).getAttribute("value"), "Generate");
     }
 
     //tr[3]/td/input[@value]
 
     @Test
     public void titleCheck() {
-           Assert.assertEquals("Title is not matched!", chromeDriver.getTitle(), "Password generator");
+           Assert.assertEquals("Title is not matched!", TestHelper.driver.getTitle(), "Password generator");
     }
 
 
