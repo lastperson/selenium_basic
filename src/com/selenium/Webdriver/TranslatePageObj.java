@@ -53,7 +53,11 @@ public class TranslatePageObj {
     public void langsPresentCheck () {
         //нажимаем кнопку для открытия языков
         TestHelper.driver.findElement(By.id("gt-sl-gms")).click();
-        Assert.assertEquals(TestHelper.driver.findElement(By.xpath("//*[@id=\":i\"]/div")).getText(), "греческий");
+       Assert.assertEquals(TestHelper.driver.findElement(By.xpath("//*[@id=\":i\"]/div")).getText(), "греческий");
+       Assert.assertEquals(TestHelper.driver.findElement(By.xpath("//*[@id=\":1f\"]/div")).getText(), "немецкий"); // мальтийский
+        Assert.assertEquals(TestHelper.driver.findElement(By.xpath(".//*[@id=':1x']/div")).getText(), "суданский"); //словацкий
+
+
        
 
     }
