@@ -19,7 +19,7 @@ public class TestHelper {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--lang=ru");
         driver = new ChromeDriver(options);
-        driver.manage().window().setSize(new Dimension(1200, 768));
+        driver.manage().window().setSize(new Dimension(1600, 768));
     }
 
     public static void tearDown(){driver.quit();}
