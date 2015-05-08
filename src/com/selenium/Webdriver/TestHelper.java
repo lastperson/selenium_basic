@@ -24,5 +24,13 @@ public class TestHelper {
 
     public static void tearDown(){driver.quit();}
 
+    public static WebDriver getDriver() {
+        return driver;
+    }
+
+    public static void setDriver(WebDriver driver) {
+        TestHelper.driver = driver;
+    }
+
 
 }

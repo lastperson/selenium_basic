@@ -37,29 +37,30 @@ TranslatePage functions = new TranslatePage();
 
     @Test
     public void titleCheck_2 (){
-        Assert.assertTrue(functions.titleCheck("Переводчик Google", "https://translate.google.ru/"));
+        Assert.assertTrue(functions.titleCheck("Переводчик Google", functions.mainLink));
     }
 
 
     @Test
     public void fieldsCheck_3 (){
         //Кнопка перевода
-        TestHelper.driver.findElement(By.id("gt-submit")).isDisplayed();
-//    Поле для ввода текста
-        TestHelper.driver.findElement(By.id("gt-src-wrap")).isDisplayed();
+        functions.isPresend(functions.submitButton);
+//    Поле для ввода текста.
+        functions.isPresend(functions.inputField);
 //    Поле результата
-        TestHelper.driver.findElement(By.id("result_box")).isDisplayed();
+        functions.isPresend(functions.resultField);
     }
+
+
     @Test
     public void resultBoxEnterTest_4 (){
-        Assert.assertEquals(TestHelper.driver.findElement(By.id("result_box")).getTagName(), "span");
+        Assert.assertEquals(TestHelper.driver.findElement(By.xpath(functions.resultField)).getTagName(), "span");
     }
+
+
 
     @Test
     public void langsPresentCheck_5 () {
-
-
-
         //нажимаем кнопку для открытия языков
         TestHelper.driver.findElement(By.id("gt-sl-gms")).click();
 
@@ -119,17 +120,17 @@ TranslatePage functions = new TranslatePage();
     @Test
     public void playButton_6 (){
 //            Вводим Hello
-        TestHelper.driver.findElement(By.xpath("//textarea[@id=\"source\"]")).sendKeys("Hello");
+        functions.enterText("Hello");
 //            Смотрим, что отобразилась иконка прослушки
-        TestHelper.driver.findElement(By.xpath("//span[@class=\"jfk-button-img\"]")).isDisplayed();
+       functions.isPresend(functions.getPlayButton());
     }
 
     @Test
     public void linkTranslate_7 () {
 //        Вводим ссылку https://translate.google.com/#en/ru/hello
-        TestHelper.driver.get("https://translate.google.com/#en/ru/hello");
+        functions.linkTranslation("en", "ru", "hello");
 //        Ищем поле результата и сверяем значение
-        Assert.assertEquals(TestHelper.driver.findElement(By.id("result_box")).getText(), "здравствуйте");
+        Assert.assertEquals(TestHelper.driver.findElement(By.xpath(functions.resultField)).getText(), "здравствуйте");
     }
 
     @Test
