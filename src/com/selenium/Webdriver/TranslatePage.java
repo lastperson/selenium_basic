@@ -15,17 +15,33 @@ import java.lang.*;
 
 public class TranslatePage {
 
-    public String mainLink = "https://translate.google.ru/";
-    public String submitButton = "//input[@id='gt-submit']";
-    public String inputField = "//textarea[@id='source']";
-    public String resultField = "//*[@id='result_box']";
-    private String playButton = "//span[@class='jfk-button-img']"; //СДЕЛАТЬ ВСЁ КАК ТУТ!!!!!!
+    private String mainLink = "https://translate.google.ru/";
+    private String submitButton = "//input[@id='gt-submit']";
+    private String inputField = "//textarea[@id='source']";
+    private String resultField = "//*[@id='result_box']";
+    private String playButton = "//span[@class='jfk-button-img']";
 
     public String getPlayButton() {
         return playButton;
     }
 
-    public void open (){ TestHelper.getDriver().get(mainLink); }
+    public String getMainLink() {
+        return mainLink;
+    }
+
+    public String getSubmitButton() {
+        return submitButton;
+    }
+
+    public String getInputField() {
+        return inputField;
+    }
+
+    public String getResultField() {
+        return resultField;
+    }
+
+    public void open (){ TestHelper.getDriver().get(getMainLink()); }
 
     public void sleepTime (int Timer) {
         try {
@@ -37,6 +53,11 @@ public class TranslatePage {
     public Boolean isPresend (String xpath) {
         sleepTime(1000);
         return TestHelper.getDriver().findElement(By.xpath(xpath)).isDisplayed();
+    }
+
+    public Boolean langIsPresent (String language) {
+        TestHelper.getDriver().findElement(By.id("gt-sl-gms")).click();
+        return TestHelper.getDriver().findElement(By.xpath(".//div[@id=\"gt-sl-gms-menu\"]//div[contains(text(),'" + language + "')]")).isDisplayed();
     }
 
     public void langSelectionLeft (String language) {
@@ -69,16 +90,16 @@ public class TranslatePage {
     }
     
     public void enterText (String text) {
-        TestHelper.getDriver().findElement(By.xpath(inputField)).sendKeys(text);
+        TestHelper.getDriver().findElement(By.xpath(getInputField())).sendKeys(text);
     }
     
     public void linkTranslation (String firstLanguage, String secondLanguage, String text) {
-        TestHelper.getDriver().get(mainLink + "#" + firstLanguage + "/" + secondLanguage + "/" + text);
+        TestHelper.getDriver().get(getMainLink() + "#" + firstLanguage + "/" + secondLanguage + "/" + text);
     }
 
     
     public Boolean checkTranslationCorrect (String etalonText) {
-        return TestHelper.getDriver().findElement(By.xpath(resultField)).getText().equals(etalonText);
+        return TestHelper.getDriver().findElement(By.xpath(getResultField())).getText().equals(etalonText);
     }
 
 

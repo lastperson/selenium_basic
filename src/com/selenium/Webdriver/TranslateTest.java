@@ -37,48 +37,88 @@ TranslatePage functions = new TranslatePage();
 
     @Test
     public void titleCheck_2 (){
-        Assert.assertTrue(functions.titleCheck("Переводчик Google", functions.mainLink));
+        Assert.assertTrue(functions.titleCheck("Переводчик Google", functions.getMainLink()));
     }
 
 
     @Test
     public void fieldsCheck_3 (){
         //Кнопка перевода
-        functions.isPresend(functions.submitButton);
+        functions.isPresend(functions.getSubmitButton());
 //    Поле для ввода текста.
-        functions.isPresend(functions.inputField);
+        functions.isPresend(functions.getInputField());
 //    Поле результата
-        functions.isPresend(functions.resultField);
+        functions.isPresend(functions.getResultField());
     }
 
 
     @Test
     public void resultBoxEnterTest_4 (){
-        Assert.assertEquals(TestHelper.driver.findElement(By.xpath(functions.resultField)).getTagName(), "span");
+        Assert.assertEquals(TestHelper.getDriver().findElement(By.xpath(functions.getResultField())).getTagName(), "span");
     }
 
 
 
     @Test
     public void langsPresentCheck_5 () {
-        //нажимаем кнопку для открытия языков
-        TestHelper.driver.findElement(By.id("gt-sl-gms")).click();
 
-        List langs = new ArrayList();
-        langs.add("греческий");
-        langs.add("мальтийский");
-        langs.add("словацкий");
+        functions.langIsPresent("греческий");
+        functions.langIsPresent("мальтийский");
+        functions.langIsPresent("словацкий");
 
-        List<WebElement> allLangs = TestHelper.driver.findElements(By.xpath(".//div[@id=\"gt-sl-gms-menu\"]//div[@class=\"goog-menuitem goog-option\"]"));
+    }
+    @Test
+    public void playButton_6 (){
+//            Вводим Hello
+        functions.enterText("Hello");
+//            Смотрим, что отобразилась иконка прослушки
+       functions.isPresend(functions.getPlayButton());
+    }
 
-        for (WebElement tmp:allLangs)
+    @Test
+    public void linkTranslate_7 () {
 
-            System.out.println(tmp.getText());
+        functions.linkTranslation("en", "ru", "hello");
+//        Ищем поле результата и сверяем значение
+        functions.sleepTime(5000);
+        Assert.assertEquals(TestHelper.getDriver().findElement(By.xpath(functions.getResultField())).getText(), "здравствуйте");
+    }
 
-        for (Object tmp2:langs)
-            System.out.println(String.valueOf(tmp2));
+    @Test
+    public void checkSpanish_8 () {
 
-        System.out.println(allLangs.containsAll(langs));
+        functions.langSelectionLeft("испанский");
+
+        functions.sleepTime(1000);
+
+        functions.langSelectionRight("английский");
+
+        functions.sleepTime(2000);
+
+
+    }
+
+}
+
+/*
+
+//        List<String> langs = new ArrayList();
+//        langs.add("греческий");
+//        langs.add("мальтийский");
+//        langs.add("словацкий");
+//
+//        List<WebElement> allLangs = TestHelper.getDriver().findElements(By.xpath(".//div[@id=\"gt-sl-gms-menu\"]//div[@class=\"goog-menuitem goog-option\"]"));
+
+//        for (WebElement tmp:allLangs)
+//
+//            System.out.println(tmp.getText());
+
+//        for (Object tmp2:langs)
+//            System.out.println(String.valueOf(tmp2));
+
+//        System.out.println(allLangs.containsAll(langs));
+
+
 //        Assert.assertTrue();
 
 
@@ -103,53 +143,9 @@ TranslatePage functions = new TranslatePage();
 //            System.out.println("1: "+tmp.getText());
 
 //
-//       Assert.assertEquals(TestHelper.driver.findElement(By.xpath("//*[@id=\":i\"]/div")).getText(), "греческий");
-//       Assert.assertEquals(TestHelper.driver.findElement(By.xpath("//*[@id=\":1f\"]/div")).getText(), "немецкий"); // мальтийский
-//        Assert.assertEquals(TestHelper.driver.findElement(By.xpath(".//*[@id=':1x']/div")).getText(), "суданский"); //словацкий
+//       Assert.assertEquals(TestHelper.getDriver().findElement(By.xpath("//*[@id=\":i\"]/div")).getText(), "греческий");
+//       Assert.assertEquals(TestHelper.getDriver().findElement(By.xpath("//*[@id=\":1f\"]/div")).getText(), "немецкий"); // мальтийский
+//        Assert.assertEquals(TestHelper.getDriver().findElement(By.xpath(".//*[@id=':1x']/div")).getText(), "суданский"); //словацкий
 
 
-        /*
-        Конечный элемент - div class=goog-menuitem-checkbox
-        Start - div id=gt-sl-gms-menu
-        //div[@id=\"gt-sl-gms-menu\"]//div[@class=\"goog-menuitem-checkbox\"]
-
-
-         */
-
-    }
-    @Test
-    public void playButton_6 (){
-//            Вводим Hello
-        functions.enterText("Hello");
-//            Смотрим, что отобразилась иконка прослушки
-       functions.isPresend(functions.getPlayButton());
-    }
-
-    @Test
-    public void linkTranslate_7 () {
-//        Вводим ссылку https://translate.google.com/#en/ru/hello
-        functions.linkTranslation("en", "ru", "hello");
-//        Ищем поле результата и сверяем значение
-        Assert.assertEquals(TestHelper.driver.findElement(By.xpath(functions.resultField)).getText(), "здравствуйте");
-    }
-
-    @Test
-    public void checkSpanish_8 () {
-
-        //нажимаем кнопку для открытия языков слева
-        TestHelper.driver.findElement(By.id("gt-sl-gms")).click();
-//        выбираем испанский язык слева
-        TestHelper.driver.findElement(By.xpath(".//*[@id=':x']")).click();
-
-        functions.sleepTime(1000);
-
-        //нажимаем кнопку для открытия языков справа
-        TestHelper.driver.findElement(By.xpath(".//div[@id='gt-tl-gms']")).click();
-//        Выбираем  Английский справа
-        functions.sleepTime(2000);
-        TestHelper.driver.findElement(By.xpath(".//div[@id='goog-menuitem-group-1']/div[5]")).click();
-
-        functions.sleepTime(5000);
-    }
-
-}
+ */
