@@ -117,7 +117,7 @@ public class TranslateTest {
         String tmp = TestHelper.getDriver().findElement(By.xpath(functions.getResultField())).getText();
         String utfString = new String(tmp.getBytes(Charset.forName("utf-8")));
 //        Assert.assertEquals(functions.checkTranslationCorrect("光荣属于乌克兰！光荣属于英雄！"), true);
-        Assert.assertEquals(utfString, "光荣属于乌克兰！光荣属于英雄！");
+        Assert.assertEquals("光荣属于乌克兰！光荣属于英雄！", utfString);
     }
 
     @Test
