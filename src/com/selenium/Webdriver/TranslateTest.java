@@ -113,7 +113,8 @@ public class TranslateTest {
         functions.langSelectionRight("китайский (упрощенный)");
         functions.enterText("Слава Україні! Героям Слава!");
         functions.sleepTime(5000);
-        Assert.assertTrue(functions.checkTranslationCorrect("光荣属于乌克兰！光荣属于英雄！"));
+        Assert.assertEquals(functions.checkTranslationCorrect("光荣属于乌克兰！光荣属于英雄！"), true);
+        
     }
 
     @Test
@@ -124,7 +125,7 @@ public class TranslateTest {
         Assert.assertTrue(functions.checkInputFieldCorrect("Hello"));
         functions.sleepTime(1000);
         Assert.assertTrue(functions.langButtonCheck(functions.getLeftLangDivButton(), "украинский"));
-        Assert.assertTrue (functions.langButtonCheck(functions.getRightLangDivButton(), "яванский"));
+        Assert.assertTrue(functions.langButtonCheck(functions.getRightLangDivButton(), "яванский"));
 
     }
 
