@@ -112,7 +112,7 @@ public class TranslateTest {
         functions.langSelectionLeft("украинский");
         functions.langSelectionRight("китайский (упрощенный)");
         functions.enterText("Слава Україні! Героям Слава!");
-        functions.sleepTime(2000);
+        functions.sleepTime(5000);
         Assert.assertTrue(functions.checkTranslationCorrect("光荣属于乌克兰！光荣属于英雄！"));
     }
 
