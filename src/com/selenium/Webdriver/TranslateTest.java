@@ -114,10 +114,10 @@ public class TranslateTest {
         functions.langSelectionRight("китайский (упрощенный)");
         functions.enterText("Слава Україні! Героям Слава!");
         functions.sleepTime(5000);
-        String tmp = TestHelper.getDriver().findElement(By.xpath(functions.getResultField())).getText();
-        String utfString = new String(tmp.getBytes(Charset.forName("utf-8")));
-//        Assert.assertEquals(functions.checkTranslationCorrect("光荣属于乌克兰！光荣属于英雄！"), true);
-        Assert.assertEquals("光荣属于乌克兰！光荣属于英雄！", utfString);
+//        String tmp = TestHelper.getDriver().findElement(By.xpath(functions.getResultField())).getText();
+//        String utfString = new String(tmp.getBytes(Charset.forName("utf-8")));
+        Assert.assertEquals(functions.checkTranslationCorrect("光荣属于乌克兰！光荣属于英雄！"), true);
+//        Assert.assertEquals("光荣属于乌克兰！光荣属于英雄！", utfString);
     }
 
     @Test
