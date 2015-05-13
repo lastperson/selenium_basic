@@ -113,8 +113,9 @@ public class TranslateTest {
         functions.langSelectionRight("китайский (упрощенный)");
         functions.enterText("Слава Україні! Героям Слава!");
         functions.sleepTime(5000);
+        System.out.println(TestHelper.getDriver().findElement(By.xpath(functions.getResultField())).getText());
         Assert.assertEquals(functions.checkTranslationCorrect("光荣属于乌克兰！光荣属于英雄！"), true);
-        
+
     }
 
     @Test
