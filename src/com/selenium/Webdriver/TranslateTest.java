@@ -11,14 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
-
 public class TranslateTest {
 
-TranslatePage functions = new TranslatePage();
+    TranslatePage functions = new TranslatePage();
 
     @Before
-    public void init(){
+    public void init() {
         TestHelper.init();
         functions.open();
     }
@@ -30,19 +28,19 @@ TranslatePage functions = new TranslatePage();
     }
 
     @Test
-    public void blankTranslate_1 (){
+    public void blankTranslate_1() {
         functions.submit();
         Assert.assertEquals(functions.resultBox(), "");
     }
 
     @Test
-    public void titleCheck_2 (){
+    public void titleCheck_2() {
         Assert.assertTrue(functions.titleCheck("Переводчик Google", functions.getMainLink()));
     }
 
 
     @Test
-    public void fieldsCheck_3 (){
+    public void fieldsCheck_3() {
         //Кнопка перевода
         functions.isPresend(functions.getSubmitButton());
 //    Поле для ввода текста.
@@ -53,50 +51,83 @@ TranslatePage functions = new TranslatePage();
 
 
     @Test
-    public void resultBoxEnterTest_4 (){
+    public void resultBoxEnterTest_4() {
         Assert.assertEquals(TestHelper.getDriver().findElement(By.xpath(functions.getResultField())).getTagName(), "span");
     }
 
 
-
     @Test
-    public void langsPresentCheck_5 () {
+    public void langsPresentCheck_5() {
 
         functions.langIsPresent("греческий");
         functions.langIsPresent("мальтийский");
         functions.langIsPresent("словацкий");
 
     }
+
     @Test
-    public void playButton_6 (){
+    public void playButton_6() {
 //            Вводим Hello
         functions.enterText("Hello");
 //            Смотрим, что отобразилась иконка прослушки
-       functions.isPresend(functions.getPlayButton());
+        functions.isPresend(functions.getPlayButton());
     }
 
     @Test
-    public void linkTranslate_7 () {
+    public void linkTranslate_7() {
 
         functions.linkTranslation("en", "ru", "hello");
-//        Ищем поле результата и сверяем значение
         functions.sleepTime(5000);
-        Assert.assertEquals(TestHelper.getDriver().findElement(By.xpath(functions.getResultField())).getText(), "здравствуйте");
+        Assert.assertTrue(functions.checkTranslationCorrect("здравствуйте"));
     }
 
     @Test
-    public void checkSpanish_8 () {
+    public void checkSpanish_8() {
 
         functions.langSelectionLeft("испанский");
 
-        functions.sleepTime(1000);
-
         functions.langSelectionRight("английский");
 
-        functions.sleepTime(2000);
+        functions.enterText("hello");
 
+        functions.langSwitch();
+
+        functions.sleepTime(1000);
+
+        Assert.assertTrue(functions.checkTranslationCorrect("¡hola"));
+    }
+
+    @Test
+    public void clearResult_9() {
+        functions.enterText("hello");
+        functions.sleepTime(1000);
+        functions.clickClearButton();
+
+        functions.sleepTime(1000);
+        Assert.assertTrue(functions.checkTranslationCorrect(""));
+    }
+
+    @Test
+    public void chineseTranslate_10() {
+        functions.langSelectionLeft("украинский");
+        functions.langSelectionRight("китайский (упрощенный)");
+        functions.enterText("Слава Україні! Героям Слава!");
+        functions.sleepTime(2000);
+        Assert.assertTrue(functions.checkTranslationCorrect("光荣属于乌克兰！光荣属于英雄！"));
+    }
+
+    @Test
+    public void javanTranslate_11() {
+        functions.linkTranslation("uk", "jw", "Hello");
+        functions.sleepTime(2000);
+        Assert.assertTrue(functions.checkTranslationCorrect("Hello"));
+        Assert.assertTrue(functions.checkInputFieldCorrect("Hello"));
+        functions.sleepTime(1000);
+        Assert.assertTrue(functions.langButtonCheck(functions.getLeftLangDivButton(), "украинский"));
+        Assert.assertTrue (functions.langButtonCheck(functions.getRightLangDivButton(), "яванский"));
 
     }
+
 
 }
 
