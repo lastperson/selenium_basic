@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.*;
@@ -146,6 +147,11 @@ public class TranslatePage {
         else
             return false;
 
+    }
+
+    public String getText (WebElement e) {
+        String tmp = e.getText();
+        return new String(tmp.getBytes(Charset.forName("utf-8")));
     }
 
 

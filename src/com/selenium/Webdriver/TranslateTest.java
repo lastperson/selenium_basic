@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -113,9 +114,10 @@ public class TranslateTest {
         functions.langSelectionRight("китайский (упрощенный)");
         functions.enterText("Слава Україні! Героям Слава!");
         functions.sleepTime(5000);
-        System.out.println(TestHelper.getDriver().findElement(By.xpath(functions.getResultField())).getText());
-        Assert.assertEquals(functions.checkTranslationCorrect("光荣属于乌克兰！光荣属于英雄！"), true);
-
+        String tmp = TestHelper.getDriver().findElement(By.xpath(functions.getResultField())).getText();
+        String utfString = new String(tmp.getBytes(Charset.forName("utf-8")));
+//        Assert.assertEquals(functions.checkTranslationCorrect("光荣属于乌克兰！光荣属于英雄！"), true);
+        Assert.assertEquals(utfString, "光荣属于乌克兰！光荣属于英雄！");
     }
 
     @Test
