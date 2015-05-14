@@ -42,11 +42,8 @@ public class TranslateTest {
 
     @Test
     public void fieldsCheck_3() {
-        //Кнопка перевода
         functions.isPresend(functions.getSubmitButton());
-//    Поле для ввода текста.
         functions.isPresend(functions.getInputField());
-//    Поле результата
         functions.isPresend(functions.getResultField());
     }
 
@@ -59,7 +56,6 @@ public class TranslateTest {
 
     @Test
     public void langsPresentCheck_5() {
-
         functions.langIsPresent("греческий");
         functions.langIsPresent("мальтийский");
         functions.langIsPresent("словацкий");
@@ -68,34 +64,27 @@ public class TranslateTest {
 
     @Test
     public void playButton_6() {
-//            Вводим Hello
         functions.enterText("Hello");
-//            Смотрим, что отобразилась иконка прослушки
         functions.isPresend(functions.getPlayButton());
     }
 
     @Test
     public void linkTranslate_7() {
-
         functions.linkTranslation("en", "ru", "hello");
         functions.sleepTime(5000);
-        Assert.assertTrue(functions.checkTranslationCorrect("здравствуйте"));
+        functions.checkTranslationCorrect("здравствуйте");
     }
 
     @Test
     public void checkSpanish_8() {
 
         functions.langSelectionLeft("испанский");
-
         functions.langSelectionRight("английский");
-
         functions.enterText("hello");
-
         functions.langSwitch();
-
         functions.sleepTime(1000);
+        functions.checkTranslationCorrect("¡hola");
 
-        Assert.assertTrue(functions.checkTranslationCorrect("¡hola"));
     }
 
     @Test
@@ -103,9 +92,8 @@ public class TranslateTest {
         functions.enterText("hello");
         functions.sleepTime(1000);
         functions.clickClearButton();
-
         functions.sleepTime(1000);
-        Assert.assertTrue(functions.checkTranslationCorrect(""));
+        functions.checkTranslationCorrect("");
     }
 
     @Test
@@ -114,17 +102,14 @@ public class TranslateTest {
         functions.langSelectionRight("китайский (упрощенный)");
         functions.enterText("Слава Україні! Героям Слава!");
         functions.sleepTime(5000);
-//        String tmp = TestHelper.getDriver().findElement(By.xpath(functions.getResultField())).getText();
-//        String utfString = new String(tmp.getBytes(Charset.forName("utf-8")));
-        Assert.assertEquals(functions.checkTranslationCorrect("光荣属于乌克兰！光荣属于英雄！"), true);
-//        Assert.assertEquals("光荣属于乌克兰！光荣属于英雄！", utfString);
+        functions.checkTranslationCorrect("光荣属于乌克兰！光荣属于英雄！");
     }
 
     @Test
     public void javanTranslate_11() {
         functions.linkTranslation("uk", "jw", "Hello");
         functions.sleepTime(2000);
-        Assert.assertTrue(functions.checkTranslationCorrect("Hello"));
+        functions.checkTranslationCorrect("Hello");
         Assert.assertTrue(functions.checkInputFieldCorrect("Hello"));
         functions.sleepTime(1000);
         Assert.assertTrue(functions.langButtonCheck(functions.getLeftLangDivButton(), "украинский"));

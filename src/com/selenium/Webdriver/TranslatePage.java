@@ -124,8 +124,9 @@ public class TranslatePage {
     }
 
 
-    public Boolean checkTranslationCorrect(String etalonText) {
-        return TestHelper.getDriver().findElement(By.xpath(getResultField())).getText().equals(etalonText);
+    public void checkTranslationCorrect(String etalonText) {
+     Assert.assertEquals(TestHelper.getDriver().findElement(By.xpath(getResultField())).getText(), etalonText);
+//        return TestHelper.getDriver().findElement(By.xpath(getResultField())).getText().equals(etalonText);
     }
 
     public Boolean checkInputFieldCorrect(String etalonText) {
