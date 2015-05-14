@@ -138,7 +138,7 @@ public class GmailPage {
     }
 
     public Boolean emailIsSent() {
-        return get("div[contains(text(),'" + "Письмо отправлено" + "')]").isDisplayed();
+        return get("div[contains(text(),'Письмо отправлено')]").isDisplayed();
     }
 
 
