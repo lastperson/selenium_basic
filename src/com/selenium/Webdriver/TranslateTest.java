@@ -117,6 +117,13 @@ public class TranslateTest {
 
     }
 
+    @Test
+    public void fastLangButtonsDisplayed_12 () {
+        Assert.assertTrue(functions.fastButtonsDisplayed());
+    }
+
+
+
 
 }
 

@@ -22,6 +22,18 @@ public class TranslatePage {
     private String playButton = "//span[@class='jfk-button-img']";
     private String langSwitch = ".//*[@id='gt-swap']";
     private String clearButton = ".//*[@id='gt-clear']";
+    private String leftLangDivButton = ".//*[@id='gt-sl-sugg']/div[3]";
+    private String rightLangDivButton = ".//*[@id='gt-tl-sugg']/div[3]";
+    private String leftFastButton = ".//*[@id='gt-sl-sugg']/div";
+    private String rightFastButton = ".//*[@id='gt-tl-sugg']/div";
+
+    public String getLeftFastButton() {
+        return leftFastButton;
+    }
+
+    public String getRightFastButton() {
+        return rightFastButton;
+    }
 
     public String getRightLangDivButton() {
         return rightLangDivButton;
@@ -32,8 +44,6 @@ public class TranslatePage {
         return leftLangDivButton;
     }
 
-    private String leftLangDivButton = ".//*[@id='gt-sl-sugg']/div[3]";
-    private String rightLangDivButton = ".//*[@id='gt-tl-sugg']/div[3]";
 
     public String getClearButton() {
         return clearButton;
@@ -125,7 +135,7 @@ public class TranslatePage {
 
 
     public void checkTranslationCorrect(String etalonText) {
-     Assert.assertEquals(TestHelper.getDriver().findElement(By.xpath(getResultField())).getText(), etalonText);
+        Assert.assertEquals(TestHelper.getDriver().findElement(By.xpath(getResultField())).getText(), etalonText);
 //        return TestHelper.getDriver().findElement(By.xpath(getResultField())).getText().equals(etalonText);
     }
 
@@ -144,15 +154,26 @@ public class TranslatePage {
 
     public Boolean langButtonCheck(String xpath, String language) {
         if (TestHelper.getDriver().findElement(By.xpath(xpath)).getText().equals(language))
-        return true;
+            return true;
         else
             return false;
 
     }
 
-    public String getText (WebElement e) {
+    public String getText(WebElement e) {
         String tmp = e.getText();
         return new String(tmp.getBytes(Charset.forName("utf-8")));
+    }
+
+    public Boolean fastButtonsDisplayed() {
+        Boolean flag = true;
+        for (int i = 1; i <= 3; i++) {
+            if ((isPresend(getLeftFastButton() + "[" + i + "]") == true) && (isPresend(getRightFastButton() + "[" + i + "]") == true))
+                flag = true;
+            else
+                flag = false;
+        }
+        return flag;
     }
 
 
