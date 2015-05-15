@@ -8,10 +8,14 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import java.awt.*;
+import java.awt.datatransfer.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.*;
+import java.awt.datatransfer.Clipboard;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
 
 
 public class GmailPage {
@@ -25,10 +29,31 @@ public class GmailPage {
     private String toField = ".//textarea[@aria-label='Кому']";
     private String ccFieldLink = ".//span[contains(text(),'Копия')]";
     private String ccField = ".//textarea[@aria-label='Копия']";
-    private String subjectField = ".//input[@placeholder='Тема']";
+    private String subjectField = ".//input[@class='aoT']";
     private String bodyField = ".//div[@aria-label='Тело письма']";
     private String sendButton = ".//div[contains(text(),'Отправить')]";
-    private String mailSentText = ".//*[@class='vh']"; //Письмо отправлено
+    private String mailSentText = ".//span[@id='link_vsm']"; //Письмо отправлено
+    private String addAttachmentsButton = ".//div[@command='Files']"; //Добавить файл с компа
+    private String addGoogleDriveAttButton = ".//div[@command='docs']"; //Добавить файл из Ггул драйва
+    private String googleDriveDocFile = ".//div[@data-target='doc']"; //НЕ РАБОТАЕТ Добавить первый ДОК файл с гугл драйва
+    private String googleDriveAddButton = ".//div[contains(text(),'Добавить')]"; //Подтвердить выбор добавления ДОК файла с гугл драйва
+
+
+    public String getAddGoogleDriveAttButton() {
+        return addGoogleDriveAttButton;
+    }
+
+    public String getGoogleDriveAddButton() {
+        return googleDriveAddButton;
+    }
+
+    public String getGoogleDriveDocFile() {
+        return googleDriveDocFile;
+    }
+
+    public String getAddAttachmentsButton() {
+        return addAttachmentsButton;
+    }
 
     public String getMailSentText() {
         return mailSentText;
@@ -114,45 +139,85 @@ public class GmailPage {
         get(getToField()).sendKeys(to);
         get(getSubjectField()).sendKeys(subject);
 
-        Robot robot = null;
-        try {
-            robot = new Robot();
-        } catch (AWTException e) {
-            e.printStackTrace();
-        }
-        robot.keyPress(KeyEvent.VK_CONTROL);
-        robot.keyPress(KeyEvent.VK_SHIFT);
-        robot.keyPress(KeyEvent.VK_C);
-        robot.keyRelease(KeyEvent.VK_CONTROL);
-        robot.keyRelease(KeyEvent.VK_SHIFT);
-        robot.keyRelease(KeyEvent.VK_C);
-        sleepTime(2000);
+//        Robot robot = null;
+//        try {
+//            robot = new Robot();
+//        } catch (AWTException e) {
+//            e.printStackTrace();
+//        }
+//        robot.keyPress(KeyEvent.VK_CONTROL);
+//        robot.keyPress(KeyEvent.VK_SHIFT);
+//        robot.keyPress(KeyEvent.VK_C);
+//        robot.keyRelease(KeyEvent.VK_CONTROL);
+//        robot.keyRelease(KeyEvent.VK_SHIFT);
+//        robot.keyRelease(KeyEvent.VK_C);
+//        sleepTime(2000);
 //        get(getCcFieldLink()).click();
-        get(getCcField()).sendKeys(cc);
-        get(getSubjectField()).sendKeys(subject);
+//        get(getCcField()).sendKeys(cc);
+
         get(getBodyField()).sendKeys(body);
-        get(getSendButton()).click();
 
 
         sleepTime(2000);
     }
 
     public Boolean emailIsSent() {
-        return get("div[contains(text(),'Письмо отправлено')]").isDisplayed();
+        return get(getMailSentText()).isDisplayed();
+    }
+
+    public void sendEmail() {
+        get(getSendButton()).click();
     }
 
 
-
-    public void clickCcField () {
+    public void clickCcField() {
         get(".//span[contains(text(),'Копия')]").click();
     }
- /*
 
-    public void setCcField (String cc) {
-        get("div[contains(text(),'" + "Получатели" + "')]").sendKeys(cc);
+    public void addAttachmentFromClipboard() {
+        get(getAddAttachmentsButton()).click();
+        sleepTime(3000);
+
+        Clipboard cb = new Clipboard("/home/artpol/Documents/video-downloader-websites.ods");
+
+        //        Robot robot = null;
+//        try {
+//            robot = new Robot();
+//        } catch (AWTException e) {
+//            e.printStackTrace();
+//        }
+//        robot.keyPress(KeyEvent.VK_CONTROL);
+//        robot.keyPress(KeyEvent.VK_SHIFT);
+//        robot.keyPress(KeyEvent.VK_C);
+//        robot.keyRelease(KeyEvent.VK_CONTROL);
+//        robot.keyRelease(KeyEvent.VK_SHIFT);
+//        robot.keyRelease(KeyEvent.VK_C);
+
+        get(getGoogleDriveAddButton()).click();
+
     }
 
-*/
+    public void setClipboard(Clipboard clipboard) {
+        this.clipboard = clipboard;
+    }
+
+    public class CopyStringToClipboard {
+
+
+            String str = "/home/artpol/Documents/video-downloader-websites.ods";
+
+            Toolkit toolkit = Toolkit.getDefaultToolkit();
+            Clipboard clipboard = toolkit.getSystemClipboard();
+            StringSelection strSel = new StringSelection(str);
+
+
+
+        clipboard.setContents(strSel, null);
+
+
+
+    }
+
 
 
 }

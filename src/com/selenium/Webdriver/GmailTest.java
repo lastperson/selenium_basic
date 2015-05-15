@@ -36,12 +36,26 @@ public class GmailTest {
 
     @Test
     public void createTextEmail () {
-        functions.login("polikarpov.art", "svenoptima");
+        emailLogin();
         functions.sleepTime(5000);
         functions.createTextEmail("artpol@ukr.net", "", "Проверка связи", "Тестовое письмо \n Хотелось бы изложить причину этого письма, но его нет \n Видимо тест прошёл, поздравляю");
         functions.sleepTime(5000);
+        functions.sendEmail();
         Assert.assertTrue(functions.emailIsSent());
     }
+
+    @Test
+    public void createEmailWithAttachments () {
+        emailLogin();
+        functions.sleepTime(5000);
+        functions.createTextEmail("artpol@ukr.net", "", "Проверка связи", "Тестовое письмо \n Хотелось бы изложить причину этого письма, но его нет \n Видимо тест прошёл, поздравляю");
+        functions.addAttachmentFromClipboard();
+        functions.sleepTime(5000);
+        functions.sendEmail();
+        Assert.assertTrue(functions.emailIsSent());
+    }
+
+
 
 
 }
