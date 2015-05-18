@@ -52,6 +52,7 @@ public class GmailTest {
         functions.addAttachmentFromClipboard();
         functions.sleepTime(5000);
         functions.sendEmail();
+        functions.sleepTime(5000);
         Assert.assertTrue(functions.emailIsSent());
     }
 

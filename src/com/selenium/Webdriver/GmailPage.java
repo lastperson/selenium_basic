@@ -7,18 +7,18 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.io.*;
 import java.awt.*;
 import java.awt.datatransfer.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.lang.*;
-import java.awt.datatransfer.Clipboard;
 import java.awt.Toolkit;
-import java.awt.datatransfer.StringSelection;
 
 
 public class GmailPage {
+
 
     private String mainLink = "https://mail.google.com/mail/";
     private String inputEmail = ".//*[@id='Email']";
@@ -167,6 +167,7 @@ public class GmailPage {
 
     public void sendEmail() {
         get(getSendButton()).click();
+
     }
 
 
@@ -178,46 +179,42 @@ public class GmailPage {
         get(getAddAttachmentsButton()).click();
         sleepTime(3000);
 
-        Clipboard cb = new Clipboard("/home/artpol/Documents/video-downloader-websites.ods");
+        CopyStringToClipboard("/home/artpol/av.txt");
 
-        //        Robot robot = null;
-//        try {
-//            robot = new Robot();
-//        } catch (AWTException e) {
-//            e.printStackTrace();
-//        }
-//        robot.keyPress(KeyEvent.VK_CONTROL);
-//        robot.keyPress(KeyEvent.VK_SHIFT);
-//        robot.keyPress(KeyEvent.VK_C);
-//        robot.keyRelease(KeyEvent.VK_CONTROL);
-//        robot.keyRelease(KeyEvent.VK_SHIFT);
-//        robot.keyRelease(KeyEvent.VK_C);
 
-        get(getGoogleDriveAddButton()).click();
+        Robot robot = null;
+        try {
+            robot = new Robot();
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
+        robot.keyPress(KeyEvent.VK_CONTROL);
+        robot.keyPress(KeyEvent.VK_V);
+        robot.keyRelease(KeyEvent.VK_CONTROL);
+        robot.keyRelease(KeyEvent.VK_V);
+
+        sleepTime(3000);
+
+        robot.keyPress(KeyEvent.VK_ENTER);
+        robot.keyRelease(KeyEvent.VK_ENTER);
+
+
+
 
     }
 
-    public void setClipboard(Clipboard clipboard) {
-        this.clipboard = clipboard;
-    }
+//    public void setClipboard(Clipboard clipboard) {
+//        this.clipboard = clipboard;
+//    }
 
-    public class CopyStringToClipboard {
-
-
-            String str = "/home/artpol/Documents/video-downloader-websites.ods";
-
-            Toolkit toolkit = Toolkit.getDefaultToolkit();
-            Clipboard clipboard = toolkit.getSystemClipboard();
-            StringSelection strSel = new StringSelection(str);
-
-
-
+    public void CopyStringToClipboard(String path) {
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        Clipboard clipboard = toolkit.getSystemClipboard();
+        StringSelection strSel = new StringSelection(path);
         clipboard.setContents(strSel, null);
 
 
-
     }
-
 
 
 }

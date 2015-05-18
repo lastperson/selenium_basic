@@ -4,6 +4,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.Timer;
 
@@ -20,6 +21,10 @@ public class TestHelper {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--lang=ru");
         driver = new ChromeDriver(options);
+
+
+//        driver = new FirefoxDriver();
+
         driver.manage().window().setSize(new Dimension(1500, 768));
     }
 
