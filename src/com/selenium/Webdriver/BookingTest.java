@@ -13,6 +13,23 @@ public class BookingTest {
 
     private String trainNumber = "043 К";
     private String vagonType = "Купе";
+    private String city1Name = "Киев";
+    private String city2Name = "Ивано-Франковск";
+    private String month = "Июнь 2015";
+    private String exactDate = "20";
+    private String place = "Место: 31"; //.//a[@title='Место: 31']
+
+    public String getPlace() {
+        return place;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public String getExactDate() {
+        return exactDate;
+    }
 
     public String getTrainNumber() {
         return trainNumber;
@@ -20,6 +37,14 @@ public class BookingTest {
 
     public String getVagonType() {
         return vagonType;
+    }
+
+    public String getCity1Name() {
+        return city1Name;
+    }
+
+    public String getCity2Name() {
+        return city2Name;
     }
 
     @Before
@@ -44,16 +69,17 @@ public class BookingTest {
     public void smokeTest() {
 
 
-
-        functions.selectCity(functions.getFromField(), functions.getCity1Name());
-        functions.selectCity(functions.getToField(), functions.getCity2Name());
-        functions.selectDate(functions.getDepartureDate());
+        functions.selectCity(functions.getFromField(), getCity1Name());
+        functions.selectCity(functions.getToField(), getCity2Name());
+        functions.selectDate(functions.getDepartureDate(getMonth(), getExactDate()));
         functions.clickSearch();
         functions.scrollDown(1);
         functions.selectTrain(getTrainNumber());
         functions.closeTrainRoute();
-
         functions.clickBuy(getTrainNumber(), getVagonType());
+
+
+
 
 
     }

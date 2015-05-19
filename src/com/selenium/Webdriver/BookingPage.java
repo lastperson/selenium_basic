@@ -18,9 +18,8 @@ public class BookingPage {
     private String toField = ".//*[@id='station_till']/input";
     private String dateField = ".//*[@id='date_dep']";
     private String searchButton = ".//*[@id='content']/form/p/button";
-    private String departureDate = "html/body/div[2]/div/table/tbody/tr/td[2]/table/tbody/tr[3]/td[6]";
-    private String city1Name = "Киев";
-    private String city2Name = "Ивано-Франковск";
+    private String departureDate = ".//table[@class='grid']//table[@class='month']/caption[contains (text(), '"; //Июнь 2015')]//following::td[contains (text(), '20')]"; //.//table[@class='grid']//table[@class='month']/caption[contains (text(), 'Июнь 2015')]//following::td[contains (text(), '20')][1]
+
     private String trainNumber = ".//*[@id='ts_res_tbl']"; // //a[contains(text(), '043 К')]
     private String closeTrainRouteButton = "html/body/div[6]/div[1]/a";
 
@@ -32,17 +31,11 @@ public class BookingPage {
         return trainNumber + "//a[contains(text(), '" + train + "')]";
     }
 
-    public String getDepartureDate() {
-        return departureDate;
+    public String getDepartureDate(String month, String exactDate) {
+        return departureDate + "" + month + "')]//following::[1]td[contains (text(), '" + exactDate + "')][1]";
     }
 
-    public String getCity1Name() {
-        return city1Name;
-    }
 
-    public String getCity2Name() {
-        return city2Name;
-    }
 
     public String getFromField() {
         return fromField;
@@ -77,12 +70,7 @@ public class BookingPage {
     }
 
     public WebElement get(String xpath) {
-
-        while (!TestHelper.getDriver().findElement(By.xpath(xpath)).isDisplayed())
-        sleepTime(2000);
         return TestHelper.getDriver().findElement(By.xpath(xpath));
-
-
     }
 
     public void selectCity(String xpath, String cityName) {
@@ -103,19 +91,19 @@ public class BookingPage {
 
     }
 
-    public void clickSearch () {
+    public void clickSearch() {
         get(getSearchButton()).click();
         sleepTime(3000);
 
     }
 
-    public void selectDate (String xpath) {
+    public void selectDate(String xpath) {
         get(getDateField()).click();
         sleepTime(1000);
         get(xpath).click();
     }
 
-    public void scrollDown (int howmanyscrols) {
+    public void scrollDown(int howmanyscrols) {
         Robot robot = null;
         try {
             robot = new Robot();
@@ -123,7 +111,7 @@ public class BookingPage {
             e.printStackTrace();
         }
 
-        for (int i=1; i <= howmanyscrols; i++) {
+        for (int i = 1; i <= howmanyscrols; i++) {
             robot.keyPress(KeyEvent.VK_PAGE_DOWN);
             robot.keyRelease(KeyEvent.VK_PAGE_DOWN);
         }
@@ -131,16 +119,17 @@ public class BookingPage {
 
     }
 
-    public void selectTrain (String train) {
+    public void selectTrain(String train) {
         get(getTrainNumber(train)).click();
         sleepTime(2000);
     }
 
-    public void closeTrainRoute () {
+    public void closeTrainRoute() {
         get(getCloseTrainRouteButton()).click();
+        sleepTime(2000);
     }
 
-    public void clickBuy (String train, String vagonType) {
+    public void clickBuy(String train, String vagonType) {
 //        get("(.//td[@class='num']/a[contains(text(), '" + train + "')]/following::div[@title='" + vagonType + "']/button)[1]").click();
         get("(.//td[@class='num']/a[contains(text(), '043 К')]/following::div[@title='Купе']/button)[1]").click();
     }
