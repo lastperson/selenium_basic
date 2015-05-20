@@ -18,7 +18,7 @@ public class BookingPage {
     private String toField = ".//*[@id='station_till']/input";
     private String dateField = ".//*[@id='date_dep']";
     private String searchButton = ".//*[@id='content']/form/p/button";
-    private String departureDate = ".//table[@class='grid']//table[@class='month']/caption[contains (text(), '"; //Июнь 2015')]//following::td[contains (text(), '20')]"; //.//table[@class='grid']//table[@class='month']/caption[contains (text(), 'Июнь 2015')]//following::td[contains (text(), '20')][1]
+    private String departureDate = ".//table[@class='grid']//table[@class='month']/caption[contains(text(), '"; //.//table[@class='grid']//table[@class='month']/caption[contains(text(), 'Июнь 2015')]//following::td[contains (text(), '20')][1]
 
     private String trainNumber = ".//*[@id='ts_res_tbl']"; // //a[contains(text(), '043 К')]
     private String closeTrainRouteButton = "html/body/div[6]/div[1]/a";
@@ -32,9 +32,9 @@ public class BookingPage {
     }
 
     public String getDepartureDate(String month, String exactDate) {
-        return departureDate + "" + month + "')]//following::[1]td[contains (text(), '" + exactDate + "')][1]";
+        return departureDate + month + "')]//following::td[contains (text(), '" + exactDate + "')][1]";
     }
-
+// .//table[@class='grid']//table[@class='month']/caption[contains (text(), 'Июнь 2015')]//following::td[contains (text(), '20')][1]
 
 
     public String getFromField() {
@@ -99,8 +99,9 @@ public class BookingPage {
 
     public void selectDate(String xpath) {
         get(getDateField()).click();
-        sleepTime(1000);
+        sleepTime(2000);
         get(xpath).click();
+        sleepTime(2000);
     }
 
     public void scrollDown(int howmanyscrols) {
@@ -130,8 +131,8 @@ public class BookingPage {
     }
 
     public void clickBuy(String train, String vagonType) {
-//        get("(.//td[@class='num']/a[contains(text(), '" + train + "')]/following::div[@title='" + vagonType + "']/button)[1]").click();
-        get("(.//td[@class='num']/a[contains(text(), '043 К')]/following::div[@title='Купе']/button)[1]").click();
+        get("(.//td[@class='num']/a[contains(text(), '" + train + "')]/following::div[@title='" + vagonType + "']/button)[1]").click();
+//        get("(.//td[@class='num']/a[contains(text(), '043 К')]/following::div[@title='Купе']/button)[1]").click();
     }
 
 
