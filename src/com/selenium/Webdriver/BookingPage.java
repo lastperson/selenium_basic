@@ -3,7 +3,9 @@ package com.selenium.Webdriver;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -22,9 +24,34 @@ public class BookingPage {
 
     private String trainNumber = ".//*[@id='ts_res_tbl']"; // //a[contains(text(), '043 К')]
     private String closeTrainRouteButton = "html/body/div[6]/div[1]/a";
+    private String place = ".//*[@id='places']//a[@title='";  //  .//*[@id='places']//a[@title='Место: 31']
+    private String vagonNumber = ".//span[@class='coaches']/a[@href='"; //.//span[@class='coaches']/a[@href='#5']
+    private String price = ".//td[@class='price'][contains (text(), '"; //  .//td[@class='price'][contains (text(), '212,70')]
+    private String lastNameField = ".//*[@id='ts_chs_tbl']//input[@class='lastname']";
+    private String firstNameField = ".//*[@id='ts_chs_tbl']//input[@class='firstname']";
+
+    public String getLastNameField() {
+        return lastNameField;
+    }
+
+    public String getFirstNameField() {
+        return firstNameField;
+    }
+
+    public String getPrice(String price) {
+        return this.price + price + "')]";
+    }
+
+    public String getVagonNumber(String vagon) {
+        return vagonNumber + vagon + "']";
+    }
 
     public String getCloseTrainRouteButton() {
         return closeTrainRouteButton;
+    }
+
+    public String getPlace(String place) {
+        return this.place + place + "']";
     }
 
     public String getTrainNumber(String train) {
@@ -71,7 +98,11 @@ public class BookingPage {
 
     public WebElement get(String xpath) {
         return TestHelper.getDriver().findElement(By.xpath(xpath));
+//        return wait.until(ExpectedConditions.presenceOfElementLocated((By.xpath(xpath))));
     }
+
+
+//    public WebDriverWait wait = new WebDriverWait(TestHelper.getDriver(), 30);
 
     public void selectCity(String xpath, String cityName) {
         get(xpath).sendKeys(cityName);
@@ -130,9 +161,30 @@ public class BookingPage {
         sleepTime(2000);
     }
 
+    public void selectPlace (String place) {
+        get(getPlace(place)).click();
+        sleepTime(2000);
+    }
+
     public void clickBuy(String train, String vagonType) {
         get("(.//td[@class='num']/a[contains(text(), '" + train + "')]/following::div[@title='" + vagonType + "']/button)[1]").click();
+        sleepTime(2000);
 //        get("(.//td[@class='num']/a[contains(text(), '043 К')]/following::div[@title='Купе']/button)[1]").click();
+    }
+
+    public void checkVagonAndPlace (String vagon, String place) {
+        Assert.assertEquals("lower free", get(getPlace(place)).getAttribute("class"));
+        Assert.assertEquals(true, get(getVagonNumber(vagon)).isDisplayed());
+    }
+
+    public void checkPrice (String price) {
+        Assert.assertTrue(get(getPrice(price)).isDisplayed());
+    }
+
+    public void inputNames (String lastName, String firstName) {
+        get(getLastNameField()).sendKeys(lastName);
+        get(getFirstNameField()).sendKeys(firstName);
+        sleepTime(2000);
     }
 
 
@@ -144,9 +196,12 @@ public class BookingPage {
     s.selectByVisibleText ("03:00");
 
 
-    (.//td[@class='num']/a[contains(text(), '043 К')]/following::div[@title='Купе']/button)[1]
 
-    (.//td[@class='num']/a[contains(text(), '" + train + "')]/following::div[@title='Купе']/button)[1]
+wait.until(ExpectedConditions.presenceOfElementLocated((By.xpath("//div[@title = 'Киев']")))).click();
+public static WebDriverWait wait = new WebDriverWait(driver, 30);
+
+
+
     */
 
 

@@ -17,7 +17,27 @@ public class BookingTest {
     private String city2Name = "Ивано-Франковск";
     private String month = "Июнь 2015";
     private String exactDate = "20";
-    private String place = "Место: 31"; //.//a[@title='Место: 31']
+    private String place = "Место: 31";
+    private String vagonNumber = "#5";
+    private String price = "212,70";
+    private String lastName = "Селениум";
+    private String firstName = "Василич";
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public String getVagonNumber() {
+        return vagonNumber;
+    }
 
     public String getPlace() {
         return place;
@@ -77,8 +97,10 @@ public class BookingTest {
         functions.selectTrain(getTrainNumber());
         functions.closeTrainRoute();
         functions.clickBuy(getTrainNumber(), getVagonType());
-
-
+        functions.checkVagonAndPlace(getVagonNumber(), getPlace());
+        functions.selectPlace(getPlace());
+        functions.checkPrice(getPrice());
+        functions.inputNames(getLastName(), getFirstName());
 
 
 
