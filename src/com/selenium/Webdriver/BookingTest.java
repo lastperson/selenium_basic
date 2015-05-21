@@ -10,6 +10,7 @@ import org.junit.Test;
 public class BookingTest {
 
     BookingPage functions = new BookingPage();
+    TestHelper helper = new TestHelper();
 
     private String trainNumber = "043 К";
     private String vagonType = "Купе";
@@ -69,26 +70,27 @@ public class BookingTest {
 
     @Before
     public void init() {
-        TestHelper.init();
-        functions.open(functions.getMainLink());
+        helper.init();
     }
 
 
     @After
     public void tearDown() {
-        TestHelper.tearDown();
+        helper.tearDown();
+        System.out.println("Congratulations. Tests are passed");
     }
 
 
     @Test
     public void open() {
+        functions.open(functions.getMainLink());
         functions.sleepTime(2000);
     }
 
     @Test
     public void smokeTest() {
 
-
+        functions.open(functions.getMainLink());
         functions.selectCity(functions.getFromField(), getCity1Name());
         functions.selectCity(functions.getToField(), getCity2Name());
         functions.selectDate(functions.getDepartureDate(getMonth(), getExactDate()));
@@ -101,7 +103,6 @@ public class BookingTest {
         functions.selectPlace(getPlace());
         functions.checkPrice(getPrice());
         functions.inputNames(getLastName(), getFirstName());
-
 
 
     }

@@ -5,6 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Timer;
 import java.util.concurrent.TimeUnit;
@@ -14,15 +15,16 @@ import java.util.concurrent.TimeUnit;
  */
 public class TestHelper {
 
-    public static WebDriver driver;
+    private static WebDriver driver;
+
 
     public static void init() {
-        System.setProperty("webdriver.chrome.driver", "C:\\automation\\chromedriver.exe");
-//        System.setProperty("webdriver.chrome.driver", "/usr/local/bin/chromedriver");
+
+//        System.setProperty("webdriver.chrome.driver", "C:\\automation\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--lang=ru");
         driver = new ChromeDriver(options);
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         driver.manage().window().setSize(new Dimension(1500, 900));
     }
 
@@ -34,8 +36,10 @@ public class TestHelper {
         return driver;
     }
 
-    public static void setDriver(WebDriver driver) {
-        TestHelper.driver = driver;
+
+
+    public void setDriver(WebDriver driver) {
+        this.driver = driver;
     }
 
 

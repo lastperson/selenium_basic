@@ -9,19 +9,19 @@ import org.openqa.selenium.WebDriver;
 public class GenPassPage {
 
     public static void generate() {
-        TestHelper.driver.findElement(By.xpath("//td/input[@value]")).click();
+        TestHelper.getDriver().findElement(By.xpath("//td/input[@value]")).click();
     }
 
     public static void setField (String label, String value){
-        TestHelper.driver.findElement(By.xpath("//td[text()='"+label+"']/following::input[1]")).clear();
-        TestHelper.driver.findElement(By.xpath("//td[text()='" + label + "']/following::input[1]")).sendKeys(value);
+        TestHelper.getDriver().findElement(By.xpath("//td[text()='" + label + "']/following::input[1]")).clear();
+        TestHelper.getDriver().findElement(By.xpath("//td[text()='" + label + "']/following::input[1]")).sendKeys(value);
     }
 
     public static String getField (String label){
-        return TestHelper.driver.findElement(By.xpath("//td[text()='" + label + "']/following::input[1]")).getAttribute("value");
+        return TestHelper.getDriver().findElement(By.xpath("//td[text()='" + label + "']/following::input[1]")).getAttribute("value");
     }
 
     public static void open (){
-        TestHelper.driver.get("http://angel.net/~nic/passwd.current.html");
+        TestHelper.getDriver().get("http://angel.net/~nic/passwd.current.html");
     }
 }

@@ -73,18 +73,18 @@ public class WebDriverPassGenerator {
 //        chromeDriver.findElement(By.name("master")).sendKeys(masterpass);
 //        chromeDriver.findElement(By.name("site")).clear();
 //        chromeDriver.findElement(By.name("site")).sendKeys(sitepath);
-        TestHelper.driver.findElement(By.xpath("//td/input[@value]")).click();
+        TestHelper.getDriver().findElement(By.xpath("//td/input[@value]")).click();
 
 //        password = chromeDriver.findElement(By.name("password")).getAttribute("value");
     }
 
     public static void setField (String label, String value){
-        TestHelper.driver.findElement(By.xpath("//td[text()='"+label+"']/following::input[1]")).clear();
-        TestHelper.driver.findElement(By.xpath("//td[text()='"+label+"']/following::input[1]")).sendKeys(value);
+        TestHelper.getDriver().findElement(By.xpath("//td[text()='" + label + "']/following::input[1]")).clear();
+        TestHelper.getDriver().findElement(By.xpath("//td[text()='" + label + "']/following::input[1]")).sendKeys(value);
     }
 
     public static String getField (String label){
-        return TestHelper.driver.findElement(By.xpath("//td[text()='" + label + "']/following::input[1]")).getAttribute("value");
+        return TestHelper.getDriver().findElement(By.xpath("//td[text()='" + label + "']/following::input[1]")).getAttribute("value");
     }
 
     @Before
@@ -205,14 +205,14 @@ public class WebDriverPassGenerator {
 
     @Test
     public void generateNameButton(){
-       Assert.assertEquals("Name Button is not matched!", TestHelper.driver.findElement(By.xpath("//td/input[@value]")).getAttribute("value"), "Generate");
+       Assert.assertEquals("Name Button is not matched!", TestHelper.getDriver().findElement(By.xpath("//td/input[@value]")).getAttribute("value"), "Generate");
     }
 
     //tr[3]/td/input[@value]
 
     @Test
     public void titleCheck() {
-           Assert.assertEquals("Title is not matched!", TestHelper.driver.getTitle(), "Password generator");
+           Assert.assertEquals("Title is not matched!", TestHelper.getDriver().getTitle(), "Password generator");
     }
 
 
